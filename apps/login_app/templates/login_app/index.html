@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Login/Registration</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+    <style>
+    /* would normally put styles in a static location.  Styles here for practice and astetics only, I understand
+    that base functionallity is what is evaluated for the belt exams*/
+        .success{
+            color: green;
+        }
+        .error{
+            color: red;
+        }
+        .messages{
+            border: 1px solid black;
+            width: 300px;
+            margin: 5px 10px;
+            background-color: rgb(235, 231, 195);
+        }
+        .reg-form, .login-form{
+            border: 2px solid black;
+            width: 300px;
+            text-align: right;
+            padding: 20px;
+            margin: 5px 10px;
+            background-color: rgb(235, 231, 195);
+
+        }
+        .reg-form h2, .login-form h2{
+            text-align: left;
+            margin: 0px;
+
+        }
+        .form-input, .form-button{
+            margin: 2px 5px;
+        }
+        .form-button{
+            width: 100px;
+            height: 25px;
+            border: 0px;
+            background-color: rgb(187, 197, 240);
+        }
+        .form-button:hover{
+            background-color: cornflowerblue;
+            color: whitesmoke;
+        }
+
+    </style>
+    <body>
+        <form class='reg-form' action='/create' method="post">
+            {% csrf_token %}
+            <h2>Registration</h2>
+            <hr>
+            First Name: <input class="form-input" type="text" name="fname" autofocus><br>
+            Last Name: <input class="form-input" type="text" name="lname"><br>
+            Email: <input class="form-input" type="text" name="email"><br>
+            Password: <input class="form-input" type="password" name="password"><br>
+            Confirm pw: <input class="form-input" type="password" name="c_password"><br>
+            <input class='form-button' type="submit" value='Register'>
+        </form>
+        <form class = 'login-form'action='/login' method="post">
+            <h2>Login</h2>
+            <hr>
+            {% csrf_token %}
+            email: <input class="form-input" type="text" name="email"><br>
+            password: <input class="form-input" type="password" name="password"><br>
+            <input class='form-button' type="submit" value='Login'>
+        </form>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} 
+                class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </body>
+</html>
